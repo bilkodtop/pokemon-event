@@ -39,7 +39,7 @@
         // Barkod tespiti başarılı olduğunda çalışacak fonksiyon
         function handleBarcodeDetection(event) {
             const barcodeValue = event.target.getAttribute('value');
-            alert('Barkod okundu: ' + barcodeValue);
+            console.log(barcodeValue);
 
             // Bu noktada yapmak istediğiniz işlemleri gerçekleştirebilirsiniz,
             // örneğin, bir sunucuya veri göndermek veya belirli bir işlem yapmak.
@@ -50,6 +50,7 @@
         barcodeMarkers.forEach(marker => {
             marker.addEventListener('markerFound', handleBarcodeDetection);
         });
+
     </script>
 </body>
 </html>
