@@ -1,56 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AR.js Örneği</title>
-</head>
-<body style="margin: 0; overflow: hidden;">
+    <style>
+      .sketchfab-embed-wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+      }
+    </style>
+  </head>
+  <body style="margin: 0; overflow: hidden">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.8/aframe/build/aframe-ar.js"></script>
 
-    <a-scene arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-        <!-- 10 değerine sahip bir barkod için içerik -->
-        <a-marker type='barcode' value='10'>
-            <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
-            <a-entity 
-                position="0 0.5 0"
-                scale="1 1 1"
-                rotation="0 0 0"
-                obj-model="obj: url(charmander.obj); mtl: url(charmander.mtl);"
-            ></a-entity>
-        </a-marker>
-    
-        <a-marker type='barcode' value='5'>
-            <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
-            <a-entity 
-                position="0 0.5 0"
-                scale="1 1 1"
-                rotation="0 0 0"
-                obj-model="obj: url(pikachu.obj); mtl: url(pikachu.mtl);"
-            ></a-entity>
-        </a-marker>
-        
-        <a-entity camera></a-entity>
+    <a-scene arjs="detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+      <!-- 10 değerine sahip bir barkod için içerik -->
+      <a-marker type="barcode" value="5">
+        <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
+        <a-entity
+          position="0 0.5 0"
+          scale="1 1 1"
+          rotation="0 0 0"
+          obj-model="obj: url(pokemons/charmander/charmander.obj); mtl: url(pokemons/charmander/charmander.mtl);"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker type="barcode" value="10">
+        <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
+        <a-entity
+          position="0 0.5 0"
+          scale="1 1 1"
+          rotation="1 0 0"
+          obj-model="obj: url(pokemons/pikachu/pikachu.obj); mtl: url(pokemons/pikachu/pikachu.mtl);"
+        ></a-entity>
+      </a-marker>
+
+  
+      <a-marker type="barcode" value="21">
+        <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
+        <a-gltf-model
+        position="0 0.5 0"
+        scale="0.5 0.5 0.5"
+        rotation="0 0 0"
+        src="url(pokemons/tangela/scene.gltf)"
+        ></a-gltf-model>
+      </a-marker>
+      <a-marker type="barcode" value="20">
+        <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
+        <a-entity
+          position="0 0.5 0"
+          scale="2 2 2"
+          rotation="1 0 0"
+          obj-model="obj: url(pokemons/snorlax/_snorlax.obj); mtl: url(pokemons/snorlax/_snorlax.mtl);"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker type="barcode" value="22">
+        <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
+        <a-entity
+          position="0 0.5 0"
+          scale="1 1 1"
+          rotation="1 0 0"
+          obj-model="obj: url(pokemons/diglett/diglett.obj); mtl: url(pokemons/diglett/diglett.mtl);"
+        ></a-entity>
+      </a-marker>
+
+      <a-marker type="barcode" value="23">
+        <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
+        <a-entity
+          position="0 0.5 0"
+          scale="1 1 1"
+          rotation="1 0 0"
+          obj-model="obj: url(pokemons/marill/marill.obj); mtl: url(pokemons/marill/marill.mtl);"
+        ></a-entity>
+      </a-marker>
+      <a-marker type="barcode" value="24">
+        <!-- .obj dosyasını görüntülemek için a-entity kullanın -->
+        <a-entity
+          position="0 0.5 0"
+          scale="1 1 1"
+          rotation="1 0 0"
+          obj-model="obj: url(pokemons/cubone/cubone.obj); mtl: url(pokemons/cubone/cubone.mtl);"
+        ></a-entity>
+      </a-marker>
+
+      <a-entity camera> </a-entity>
     </a-scene>
-    
+
     <!-- JavaScript kodunu ekleyin -->
     <script>
-        // Barkod tespiti başarılı olduğunda çalışacak fonksiyon
-        function handleBarcodeDetection(event) {
-            const barcodeValue = event.target.getAttribute('value');
-            console.log(barcodeValue);
+      // Barkod tespiti başarılı olduğunda çalışacak fonksiyon
+      function handleBarcodeDetection(event) {
+        const barcodeValue = event.target.getAttribute("value");
+        console.log(barcodeValue);
 
-            // Bu noktada yapmak istediğiniz işlemleri gerçekleştirebilirsiniz,
-            // örneğin, bir sunucuya veri göndermek veya belirli bir işlem yapmak.
-        }
+        // Bu noktada yapmak istediğiniz işlemleri gerçekleştirebilirsiniz,
+        // örneğin, bir sunucuya veri göndermek veya belirli bir işlem yapmak.
+      }
 
-        // Barkod okuma olayını dinleyin
-        const barcodeMarkers = document.querySelectorAll('a-marker[type="barcode"]');
-        barcodeMarkers.forEach(marker => {
-            marker.addEventListener('markerFound', handleBarcodeDetection);
-        });
-
+      // Barkod okuma olayını dinleyin
+      const barcodeMarkers = document.querySelectorAll(
+        'a-marker[type="barcode"]'
+      );
+      barcodeMarkers.forEach((marker) => {
+        marker.addEventListener("markerFound", handleBarcodeDetection);
+      });
     </script>
-</body>
+  </body>
 </html>
