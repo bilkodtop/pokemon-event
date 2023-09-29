@@ -1,21 +1,5 @@
 {
     "kullanicilar": [
-        {
-            "nickname": "kullanici1",
-            "öğrenciNo": "12345",
-            "yakalananPokemonlar": [
-                "Pikachu",
-                "Bulbasaur",
-                "Charmander"
-            ]
-        },
-        {
-            "nickname": "kullanici2",
-            "öğrenciNo": "67890",
-            "yakalananPokemonlar": [
-                "Charmander",
-                "Squirtle"
-            ]
-        }
+
     ]
 }
