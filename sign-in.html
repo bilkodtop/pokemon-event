@@ -105,27 +105,36 @@ document
     const kullaniciAdi = document.getElementById("kullanici_adi").value;
     const ogrenciNo = document.getElementById("ogrenci_no").value;
 
-  const xhr = new XMLHttpRequest();
-  xhr.open(
-    "GET",
-    `http://localhost:3000/kaydet?kullanici_adi=${kullaniciAdi}&ogrenci_no=${ogrenciNo}`,
-    true
-  );
+    // PythonAnywhere API URL'si ve token
+    const apiUrl = 'https://www.pythonanywhere.com/api/v0/user/adraarda23/cpu/kaydet';
+  
 
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      // Başarı mesajını işle
-      const response = JSON.parse(xhr.responseText);
-      alert(response.message);
-    } else if (xhr.status === 400) {
-      alert("Bu kullanıcı adı alınmış");
-    } else {
-      alert("Kayıt işlemi başarısız oldu.");
-    }
-  };
+    // Fetch API kullanarak GET isteği gönderme
+    fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        Authorization: `Token ${MY_APP_ID}`
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          // Başarı mesajını işle
+          return response.json();
+        } else if (response.status === 400) {
+          alert('Bu kullanıcı adı alınmış');
+        } else {
+          alert('Kayıt işlemi başarısız oldu.');
+        }
+      })
+      .then(data => {
+        // Verileri işleme
+        alert(data.message); // API'den gelen mesajı göster
+      })
+      .catch(error => {
+        console.error('Hata:', error.message);
+      });
+  });
 
-  xhr.send();
-});
 
     </script>
   </body>
