@@ -82,40 +82,58 @@
       <a-entity camera> </a-entity>
     </a-scene>
     <script>
-      const ogrenciNo = localStorage.getItem("ogrenciNo");
-      if (ogrenciNo) {
-        console.log("Kullanıcı Öğrenci No:", ogrenciNo);
-      } else {
-        const ogrenciNo = prompt("Lütfen öğrenci numaranızı girin:");
-        if (ogrenciNo) {
-          localStorage.setItem("ogrenciNo", ogrenciNo);
-        } else {
-          alert("Öğrenci numarası girmeniz gerekmektedir.");
-        }
-      }
 
-      function handleBarcodeDetection(event) {
-        const pokemonName = event.target.getAttribute("name");
-        const xhr = new XMLHttpRequest();
-        // Yakalanan pokemonun adını ve kullanıcının öğrenci numarasını API'ye gönderin
-        xhr.open(
-    "GET",
-    `http://localhost:3000/pokemon-ekle?ogrenciNo=${ogrenciNo}&yeniPokemon=${pokemonName}`,
-    true
-  );
+const ogrenciNo = localStorage.getItem("ogrenciNo");
+
+if (ogrenciNo) {
+  console.log("Kullanıcı Öğrenci No:", ogrenciNo);
+  initializeBarcodeDetection(); // Barkod algılamayı başlat
+} else {
+  const ogrenciNo = prompt("Lütfen öğrenci numaranızı girin:");
+  if (ogrenciNo) {
+    localStorage.setItem("ogrenciNo", ogrenciNo);
+    initializeBarcodeDetection(); // Barkod algılamayı başlat
+  } else {
+    alert("Öğrenci numarası girmeniz gerekmektedir.");
+  }
+}
+
+function initializeBarcodeDetection() {
+  const barcodeMarkers = document.querySelectorAll('a-marker[type="barcode"]');
+  barcodeMarkers.forEach((marker) => {
+    marker.addEventListener("markerFound", handleBarcodeDetection);
+  });
+}
+
+function handleBarcodeDetection(event) {
+  const pokemonName = event.target.getAttribute("name");
+  const xhr = new XMLHttpRequest();
+
+  // PythonAnywhere API URL'si
+  const apiUrl = `https://www.pythonanywhere.com/api/v0/user/adraarda23/cpu/pokemon-ekle`;
+
+  // PythonAnywhere API isteği için Authorization başlığı
+  const headers = {
+    Authorization: `Token ${MY_APP_ID}`
+  };
+
+  // Yakalanan pokemonun adını ve kullanıcının öğrenci numarasını API'ye gönderin
+  xhr.open("GET", apiUrl, true);
+  xhr.setRequestHeader("Authorization", headers.Authorization);
 
   xhr.onload = function () {
     if (xhr.status === 200) {
       // Başarı mesajını işle
       const response = JSON.parse(xhr.responseText);
       alert(response.message);
+    } else {
+      alert("API isteği başarısız oldu.");
     }
   };
 
-  xhr.send();}
-      const barcodeMarkers = document.querySelectorAll(
-        'a-marker[type="barcode"]'
-      );
+  xhr.send();
+}
+
       barcodeMarkers.forEach((marker) => {
         marker.addEventListener("markerFound", handleBarcodeDetection);
       });
