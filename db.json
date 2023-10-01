@@ -1,5 +1,11 @@
 {
     "kullanicilar": [
-
+        {
+            "nickname": "arda",
+            "ogrenciNo": "213608",
+            "yakalananPokemonlar": [
+                "charmander"
+            ]
+        }
     ]
 }
